@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+
+  ingress:
+    build: '.'
+    image: 'shipyardbuild/compose-ingress:dev'
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock:ro'
