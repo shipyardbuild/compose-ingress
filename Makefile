@@ -1,5 +1,5 @@
 IMAGE_NAME=shipyardbuild/compose-ingress
-IMAGE_VERSION=0.1
+IMAGE_VERSION=1.0
 
 develop: clean build run
 
@@ -16,7 +16,7 @@ run:
 shell:
 	docker-compose run ingress sh
 
-version:
+version: clean build
 	@# Commit and tag the new version
 	git add Makefile
 	git commit -m "v$(IMAGE_VERSION)"
