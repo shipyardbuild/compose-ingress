@@ -1,5 +1,5 @@
 IMAGE_NAME=shipyardbuild/compose-ingress
-IMAGE_VERSION=1.0
+IMAGE_VERSION=1.0.1
 
 develop: clean build run
 
