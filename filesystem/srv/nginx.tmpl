@@ -130,6 +130,7 @@ server {
     listen [::]:80 default_server;
     {{ end }}
     access_log /var/log/nginx/access.log vhost;
+    client_max_body_size 0;
 
     {{ range $path, $containers := groupByLabel $ "shipyard.route" }}
     {{ $path := trim $path }}
