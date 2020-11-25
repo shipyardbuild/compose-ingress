@@ -4,6 +4,6 @@ services:
 
   ingress:
     build: '.'
-    image: 'shipyardbuild/compose-ingress:dev'
+    image: 'gcr.io/shipyard-infra/compose-ingress'
     volumes:
       - '/var/run/docker.sock:/tmp/docker.sock:ro'

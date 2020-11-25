@@ -1,7 +1,8 @@
-IMAGE_NAME=shipyardbuild/compose-ingress
+IMAGE_NAME=gcr.io/shipyard-infra/compose-ingress
 IMAGE_VERSION=1.0.1
 
 develop: clean build run
+release: build tag push
 
 clean:
 	docker-compose stop -t0
@@ -10,20 +11,15 @@ clean:
 build:
 	docker-compose build
 
+tag:
+	docker tag $(IMAGE_NAME):latest $(IMAGE_NAME):$(IMAGE_VERSION)
+
+push:
+	docker push $(IMAGE_NAME):latest
+	docker push $(IMAGE_NAME):$(IMAGE_VERSION)
+
 run:
 	docker-compose up
 
 shell:
 	docker-compose run ingress sh
-
-version: clean build
-	@# Commit and tag the new version
-	git add Makefile
-	git commit -m "v$(IMAGE_VERSION)"
-	git tag -a "v$(IMAGE_VERSION)" -m "v$(IMAGE_VERSION)"
-	@# Tag the latest and version images
-	docker tag $(IMAGE_NAME):dev $(IMAGE_NAME):latest
-	docker tag $(IMAGE_NAME):dev $(IMAGE_NAME):$(IMAGE_VERSION)
-	@# Push the images to registry
-	docker push $(IMAGE_NAME):latest
-	docker push $(IMAGE_NAME):$(IMAGE_VERSION)
